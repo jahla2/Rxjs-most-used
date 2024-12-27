@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { map, of } from 'rxjs';
+import { filter, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +18,11 @@ export class AppComponent implements OnInit{
     { id: '3', name: 'Marex', isActive: true },
   ];
 
-  
-  // converts data to a stream
-  // strem of user
   users$ = of(this.users);
-
-  // use operation in pipe
-  // stream of user->name from user
   usernames$ = this.users$.pipe(map((users) =>  users.map((users) => users.name)));
+
+  //filter to get active user only
+  filteredUsers$ = this.users$.pipe(filter((users)=> users.every(users => users.isActive)));
 
   ngOnInit(): void {
     // this.users$.subscribe(users => {
