@@ -4,3 +4,10 @@
 <div *ngFor="let user of users$ | async">
   {{user.name}}
 </div>
+
+<br>
+
+<!-- async pipe - subcribe to stream of username -->
+<div *ngFor="let username of usernames$ | async">
+  {{ username }}
+</div>
