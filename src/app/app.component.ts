@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BehaviorSubject, filter, fromEvent, map, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, fromEvent, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -27,14 +27,29 @@ export class AppComponent implements OnInit{
   //filter to get active user only
   filteredUsers$ = this.users$.pipe(filter((users)=> users.every(users => users.isActive)));
 
+  //Combine streams to single stream of data
+  data$ = combineLatest([
+    this.users$,
+    this.usernames$,
+    this.filteredUsers$,
+  ]).pipe(
+    map(([user,usernames,filteredUsers]) => ({
+      user,
+      usernames,
+      filteredUsers,
+    }))
+  )
+
   //Events
-  documentClick$ = fromEvent(document, 'click');
+  //documentClick$ = fromEvent(document, 'click');
 
   ngOnInit(): void {
 
-    this.documentClick$.subscribe((e) => {
-      console.log('e', e);
-    })
+
+
+    // this.documentClick$.subscribe((e) => {
+    //   console.log('e', e);
+    // })
 
     // setTimeout(() => {
     //   //update behaviour subject

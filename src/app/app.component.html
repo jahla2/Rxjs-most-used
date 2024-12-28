@@ -1,5 +1,19 @@
 <h1>Reynand Rxjs Most Used.</h1>
 
+<div *ngIf="data$ | async as data">
+  <div *ngFor="let user of data.user">
+  {{user.name}}
+</div>
+  ---
+ <div *ngFor="let username of data.usernames">
+  {{ username }}
+</div> 
+  ---
+ <div *ngFor="let user of data.filteredUsers">
+  {{ user.name }}
+</div>
+</div>
+
 <!-- async pipe - subcribe to stream and convert to plain data -->
 <!-- <div *ngFor="let user of users$ | async">
   {{user.name}}
@@ -17,6 +31,6 @@
 </div> -->
 
 <!-- Calling using behavioral Subject -->
-<div *ngIf="user$ | async as user">
+<!-- <div *ngIf="user$ | async as user">
   {{ user.name}}
-</div>
+</div> -->
