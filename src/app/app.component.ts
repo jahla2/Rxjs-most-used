@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BehaviorSubject, filter, map, of } from 'rxjs';
+import { BehaviorSubject, filter, fromEvent, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -27,14 +27,24 @@ export class AppComponent implements OnInit{
   //filter to get active user only
   filteredUsers$ = this.users$.pipe(filter((users)=> users.every(users => users.isActive)));
 
+  //Events
+  documentClick$ = fromEvent(document, 'click');
+
   ngOnInit(): void {
-    setTimeout(() => {
-      //update behaviour subject
-      this.user$.next({id: '1', name: "Jhon"});
-    }, 2000);
-    this.user$.subscribe((user) => {
-      console.log('user', user);
-    });
+
+    this.documentClick$.subscribe((e) => {
+      console.log('e', e);
+    })
+
+    // setTimeout(() => {
+    //   //update behaviour subject
+    //   this.user$.next({id: '1', name: "Jhon"});
+    // }, 2000);
+
+    // this.user$.subscribe((user) => {
+    //   console.log('user', user);
+    // });
+
     // this.users$.subscribe(users => {
     //   console.log('users', users)
     // });
