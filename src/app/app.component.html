@@ -12,7 +12,11 @@
   {{ username }}
 </div> -->
 
-<div *ngFor="let user of filteredUsers$ | async">
+<!-- <div *ngFor="let user of filteredUsers$ | async">
   {{ user.name }}
-</div>
+</div> -->
 
+<!-- Calling using behavioral Subject -->
+<div *ngIf="user$ | async as user">
+  {{ user.name}}
+</div>
